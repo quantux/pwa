@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+  <head>
+    <link rel="manifest" href="manifest.json">
+
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="A Flashcard app">
+    <meta name="apple-mobile-web-app-title" content="A Flashcard app">
+    <meta name="msapplication-starturl" content="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme_color" content="#222831">
+
+    <link rel="stylesheet" type="text/css" href="index.css" />
+    
+    <link rel="icon" type="image/png" sizes="512x512" href="homescreen.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="512x512" href="homescreen.png">
+    
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+
+    <script>
+      // Registering our Service worker
+      if('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js', { scope: './' })
+      }
+    </script>
+  </head>
+
+  <body>
+    <div class="header">Novo card</div>
+
+    <textarea placeholder="Pergunta" class="card" id="card_question"></textarea>
+    <textarea placeholder="Resposta do verso" class="card" id="card_answer"></textarea>
+
+    <div class="buttons">
+      <div onclick="addCard()" class="btn">Adicionar</div>
+
+      <a href="index.html">
+        <div class="btn btn-reverse">Voltar</div>
+      </a>
+    </div>
+
+    <script src="add.js"></script>
+  </body>
+</html>

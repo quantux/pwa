@@ -1,0 +1,14 @@
+{
+  "name": "FlashcardApp",
+  "short_name": "A Flashcard app",
+  "lang": "pt-BR",
+  "start_url": "/",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "homescreen.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
