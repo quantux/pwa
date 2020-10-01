@@ -17,8 +17,10 @@ removeItem = key => {
 // Methods
 removeCard = () => {
 
-    if(confirm("Tem certeza que deseja excluir?"))
+    if(confirm("Tem certeza que deseja excluir?")) {
         removeItem(currentId);
+        $( '#' + currentId ).remove();
+    }
 
     console.log('removido: ', currentId);
 }
@@ -46,18 +48,25 @@ for (var i = 0; i < localStorage.length; i++){
     let uniqid = localStorage.key(i);
     let question = getItem( uniqid )['question'];
 
-    // grava o primeiro currentId
-    if(i == 0) db.setItem('currentId', uniqid);
+    if(uniqid != 'currentId') {
 
-    let node = document.createElement('div');
-    node.setAttribute('class', 'card');
-    node.setAttribute('id', uniqid);
-    node.setAttribute('toggle', false);
+        // grava o primeiro currentId
+        if(i == 0) {
+            db.setItem('currentId', uniqid);
+            currentId = uniqid;
+        }
+    
+        let node = document.createElement('div');
+        node.setAttribute('class', 'card');
+        node.setAttribute('id', uniqid);
+        node.setAttribute('toggle', false);
+    
+        node.appendChild( document.createTextNode( question ) );
+        node.addEventListener('click', function() { toggleAnswer( uniqid ) }, false);
+    
+        doc.appendChild(node);
+    }
 
-    node.appendChild( document.createTextNode( question ) );
-    node.addEventListener('click', function() { toggleAnswer( uniqid ) }, false);
-
-    doc.appendChild(node);
 }
 
 // inicializar slick carousel
@@ -68,11 +77,14 @@ $(document).ready(function(){
       centerPadding: "10px",
       infinite: false,
     });
+
+    let elementCounter = document.getElementById("counter");
+    elementCounter.innerText = "Card 1/" + (parseInt(db.length) - 1);
 });
 
 $('.cards').on('afterChange', function(event, slick, currentSlide){
     let elementCounter = document.getElementById("counter");
-    elementCounter.innerText = "Card " + currentSlide + "/" + db.length;
+    elementCounter.innerText = "Card " + (parseInt(currentSlide) + 1) + "/" + (parseInt(db.length) - 1);
 
     currentId = slick.$slides.get(currentSlide)['id'];
     db.setItem('currentId', currentId);
