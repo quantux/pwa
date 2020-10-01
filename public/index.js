@@ -79,7 +79,13 @@ $(document).ready(function(){
     });
 
     let elementCounter = document.getElementById("counter");
-    elementCounter.innerText = "Card 1/" + (parseInt(db.length) - 1);
+
+    if (parseInt(db.length) == 0)
+        elementCounter.innerText = "Adicione um novo card";
+    else if (parseInt(db.length) == 1)
+        elementCounter.innerText = "Card 1/1";
+    else
+        elementCounter.innerText = "Card 1/" + (parseInt(db.length) - 1);
 });
 
 $('.cards').on('afterChange', function(event, slick, currentSlide){
